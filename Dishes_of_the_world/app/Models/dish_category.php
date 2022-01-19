@@ -11,4 +11,5 @@ class dish_category extends Model
     protected $table = 'dish_category';
 
     
+    
 }

@@ -9,7 +9,7 @@ class dish extends Model
 {
     use HasFactory;
     protected $fillable = ['title'];
-    protected $hidden = ['created_at', 'updated_at','category_id','pivot'];
+    protected $hidden = ['created_at', 'updated_at'];
 
     public function category()
     {
