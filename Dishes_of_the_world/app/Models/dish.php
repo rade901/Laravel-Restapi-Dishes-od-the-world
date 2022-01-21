@@ -15,4 +15,8 @@ class dish extends Model
     {
         return $this->belongsToMany(category::class, 'dish_category', 'category_id', 'dish_id');
     }
+    public function tags()
+    {
+        return $this->belongsToMany(Tag::class, 'dish_tag', 'tag_id', 'dish_id');
+    }
 }
