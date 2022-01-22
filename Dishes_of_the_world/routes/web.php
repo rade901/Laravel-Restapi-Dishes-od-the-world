@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\DishesController;
+use Illuminate\Support\Facades\Http;
 
 
 
@@ -18,4 +20,6 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
-
+/*Route::get('/profile',[DishesController::class,'index']);
+Route::get('/profile/{dish}',[DishesController::class,'show'])->name('dishes.show');
+Route::get('/profile', [DishesController::class, 'index'])->name('profile.index');*/

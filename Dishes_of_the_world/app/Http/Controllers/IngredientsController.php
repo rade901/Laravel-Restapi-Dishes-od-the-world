@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\category;
-use App\Http\Requests\StorecategoryRequest;
-use App\Http\Requests\UpdatecategoryRequest;
-use App\Http\Resources\CategoriesResource;
+use App\Models\ingredient;
+use App\Http\Requests\StoreingredientsRequest;
+use App\Http\Requests\UpdateingredientsRequest;
+use App\Http\Resources\IngredientResource;
 
-class CategoriesController extends Controller
+class IngredientsController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,8 +16,7 @@ class CategoriesController extends Controller
      */
     public function index()
     {
-        
-        return CategoriesResource::collection(category::all());
+        return IngredientResource::collection(ingredient::all());
     }
 
     /**
@@ -33,37 +32,37 @@ class CategoriesController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \App\Http\Requests\StorecategoryRequest  $request
+     * @param  \App\Http\Requests\StoreingredientsRequest  $request
      * @return \Illuminate\Http\Response
      */
     public function store()
     {
         $faker = \Faker\Factory::create(10);
-        $category = category::create([
+        $ingredients = ingredient::create([
             'title'=> $faker->title,
             'slug'=> $faker->slug
         ]);
-        return new CategoriesResource($category);
+        return new IngredientResource($ingredients);
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\category  $category
+     * @param  \App\Models\ingredients  $ingredients
      * @return \Illuminate\Http\Response
      */
-    public function show(category $category)
+    public function show(ingredient $ingredients)
     {
-        return new CategoriesResource($category);
+        return new IngredientResource($ingredients);
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\category  $category
+     * @param  \App\Models\ingredients  $ingredients
      * @return \Illuminate\Http\Response
      */
-    public function edit(category $category)
+    public function edit(ingredient $ingredients)
     {
         //
     }
@@ -71,29 +70,28 @@ class CategoriesController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \App\Http\Requests\UpdatecategoryRequest  $request
-     * @param  \App\Models\category  $category
+     * @param  \App\Http\Requests\UpdateingredientsRequest  $request
+     * @param  \App\Models\ingredients  $ingredients
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdatecategoryRequest $request, category $category)
+    public function update(UpdateingredientsRequest $request, ingredient $ingredients)
     {
-        $category->update([
+        $ingredients->update([
             'title'=>$request->input('title'),
             'slug'=>$request->input('slug')
          ]);
-         return new CategoriesResource($category);  
+         return new IngredientResource($ingredients);
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\category  $category
+     * @param  \App\Models\ingredient  $ingredients
      * @return \Illuminate\Http\Response
      */
-    public function destroy(category $category)
+    public function destroy(ingredient $ingredients)
     {
-        $category->delete();
+        $ingredients->delete();
         return response()->json(null, 204);
     }
-    
 }

@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DishesController;
 use App\Http\Controllers\CategoriesController;
 use App\Http\Controllers\TagController;
+use App\Http\Controllers\IngredientsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,6 +22,8 @@ use App\Http\Controllers\TagController;
 Route::apiResource('/dishes', DishesController::class);
 Route::apiResource('/category', CategoriesController::class);
 Route::apiResource('/tags', TagController::class);
+Route::apiResource('/ingredient', IngredientsController::class);
+
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();

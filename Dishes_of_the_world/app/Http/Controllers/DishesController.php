@@ -6,6 +6,7 @@ use App\Models\dish;
 use App\Http\Requests\StoredishRequest;
 use App\Http\Requests\UpdatedishRequest;
 use App\Http\Resources\DishesResource;
+use Illuminate\Support\Facades\Http;
 
 class DishesController extends Controller
 {
@@ -16,6 +17,7 @@ class DishesController extends Controller
      */
     public function index()
     {
+        
         return DishesResource::collection(dish::all());
     }
 
@@ -40,7 +42,8 @@ class DishesController extends Controller
     {
         $faker = \Faker\Factory::create(10);
         $dish = dish::create([
-            'title'=> $faker->title
+            'title'=> $faker->title,
+            'description'=> $faker->name
         ]);
         return new DishesResource($dish);
     }
@@ -77,7 +80,8 @@ class DishesController extends Controller
     public function update(UpdatedishRequest $request, dish $dish)
     {
         $dish->update([
-           'title'=>$request->input('title')
+           'title'=>$request->input('title'),
+           'description'=>$request->input('description')
         ]);
         return new DishesResource($dish);
     }
@@ -94,4 +98,13 @@ class DishesController extends Controller
         return response()->json(null, 204);
         
     }
+    public function softDeleted()
+    {
+        $restoreDish = dish::onlyTrashed()->get();
+
+        $response = $this->successfulMessage(200, 'Successfully', true, $restoreDish->count(), $restoreDish);
+        return response($response);
+    }
+    
+    
 }
