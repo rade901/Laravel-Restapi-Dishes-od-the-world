@@ -16,11 +16,12 @@ class DishesResource extends JsonResource
     {
        return 
         [
-            'id'=> (string) $this->id,
+            'id'=> $this->id,
             'type'=>'Dishes',
             'attributes'=>[
                 'title'=>$this->title,
                 'description'=>$this->description,
+                'created'=>$this->created_at->diffForHumans(),
                 'category'=>$this->category,
                 'tags'=>$this->tags,
                 'ingredients'=>$this->ingredients,

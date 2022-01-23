@@ -6,7 +6,7 @@ use App\Models\dish;
 use App\Http\Requests\StoredishRequest;
 use App\Http\Requests\UpdatedishRequest;
 use App\Http\Resources\DishesResource;
-use Illuminate\Support\Facades\Http;
+
 
 class DishesController extends Controller
 {
@@ -37,14 +37,10 @@ class DishesController extends Controller
      * @param  \App\Http\Requests\StoredishRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store()
+    public function store(StoredishRequest   $request)
   
     {
-        $faker = \Faker\Factory::create(10);
-        $dish = dish::create([
-            'title'=> $faker->title,
-            'description'=> $faker->name
-        ]);
+        $dish = dish::create($request->all());
         return new DishesResource($dish);
     }
 
@@ -57,6 +53,7 @@ class DishesController extends Controller
     public function show(dish $dish)
     {
         return new DishesResource($dish);
+        
     }
 
     /**

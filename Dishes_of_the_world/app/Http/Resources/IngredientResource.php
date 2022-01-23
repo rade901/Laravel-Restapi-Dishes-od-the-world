@@ -15,7 +15,7 @@ class IngredientResource extends JsonResource
     public function toArray($request)
     {
         return [
-            'id'=> (string) $this->id,
+            'id'=> $this->id,
             'type'=>'ingredients',
             'attributes'=>[
                 'title'=>$this->title,

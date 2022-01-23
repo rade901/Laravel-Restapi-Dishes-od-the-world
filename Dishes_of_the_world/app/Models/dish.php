@@ -11,7 +11,7 @@ class dish extends Model
     use HasFactory;
     use SoftDeletes;
     protected $fillable = ['title', 'description'];
-    protected $hidden = ['created_at', 'updated_at'];
+    protected $hidden = ['created_at', 'updated_at','deleted_at'];
 
     public function category()
     {

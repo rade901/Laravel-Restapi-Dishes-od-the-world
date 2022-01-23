@@ -19,10 +19,17 @@ use App\Http\Controllers\IngredientsController;
 */
 
 
-Route::apiResource('/dishes', DishesController::class);
-Route::apiResource('/category', CategoriesController::class);
-Route::apiResource('/tags', TagController::class);
-Route::apiResource('/ingredient', IngredientsController::class);
+
+
+Route::group(['prefix' => '/v1'], function() {
+    Route::apiResource('/dishes', DishesController::class);
+    Route::apiResource('/category', CategoriesController::class);
+    Route::apiResource('/tags', TagController::class);
+    Route::apiResource('/ingredient', IngredientsController::class);
+});
+
+
+
 
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {

@@ -14,16 +14,17 @@ class DishTag extends Migration
     public function up()
     {
         Schema::create('dish_tag', function (Blueprint $table) {
+            $table->id();
             $table->unsignedBigInteger('dish_id');
             $table->foreign('dish_id')
             ->references('id')
             ->on('dishes')
-            ->cascade('delete');
+            ->onDelete('cascade');
             $table->unsignedBigInteger('tag_id');
             $table->foreign('tag_id')
             ->references('id')
             ->on('tags')
-            ->cascade('delete');
+            ->onDelete('cascade');
     });
     }
 

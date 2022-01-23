@@ -15,7 +15,7 @@ class CreateDishesTable extends Migration
     {
         Schema::create('dishes', function (Blueprint $table) {
             $table->id();
-            $table->integer('dish_id')->default(0);
+            $table->integer('dish_id')->nullable();
             $table->string('title');
             $table->string('description');
             $table->softDeletes();

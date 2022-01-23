@@ -17,7 +17,8 @@ class CreateIngredientsTable extends Migration
             $table->id();
             $table->string('title');
             $table->string('slug');
-            $table->integer('ingredient_id')->default(0);
+            $table->integer('ingredient_id')->nullable();
+            $table->softDeletes();
             $table->timestamps();
         });
     }
