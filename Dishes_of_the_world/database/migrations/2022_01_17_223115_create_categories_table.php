@@ -18,7 +18,6 @@ class CreateCategoriesTable extends Migration
             $table->integer('dish_id')->default(0);
             $table->string('title');
             $table->string('slug');
-            $table->softDeletes();
             $table->timestamps();
         });
     }

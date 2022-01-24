@@ -18,7 +18,6 @@ class CreateIngredientsTable extends Migration
             $table->string('title');
             $table->string('slug');
             $table->integer('dish_id')->default(0);
-            $table->softDeletes();
             $table->timestamps();
         });
     }
