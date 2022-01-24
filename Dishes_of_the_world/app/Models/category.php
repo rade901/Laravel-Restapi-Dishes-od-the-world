@@ -11,5 +11,5 @@ class category extends Model
     use HasFactory;
     use SoftDeletes;
     protected $fillable = ['title', 'slug'];
-    protected $hidden = ['created_at', 'updated_at','pivot','category_id','deleted_at'];
+    protected $hidden = ['created_at', 'updated_at','deleted_at','dish_id'];
 }

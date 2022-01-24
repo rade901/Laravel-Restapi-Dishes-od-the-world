@@ -24,7 +24,7 @@ class UpdatedishRequest extends FormRequest
     public function rules()
     {
         return [
-      
+            
         ];
     }
 }

@@ -77,6 +77,9 @@ class DishesController extends Controller
     public function update(UpdatedishRequest $request, dish $dish)
     {
         $dish->update([
+           'ingredient_id'=>$request->input('ingredient_id'),
+           'tag_id'=>$request->input('tag_id'),
+           'category_id' => $request->input('category_id'),
            'title'=>$request->input('title'),
            'description'=>$request->input('description')
         ]);

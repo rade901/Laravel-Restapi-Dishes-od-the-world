@@ -15,7 +15,7 @@ class CreateCategoriesTable extends Migration
     {
         Schema::create('categories', function (Blueprint $table) {
             $table->id();
-            $table->integer('category_id')->nullable();
+            $table->integer('dish_id')->default(0);
             $table->string('title');
             $table->string('slug');
             $table->softDeletes();
