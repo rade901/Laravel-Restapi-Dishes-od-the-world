@@ -36,14 +36,13 @@ class CategoriesController extends Controller
      * @param  \App\Http\Requests\StorecategoryRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store()
+    public function store(StorecategoryRequest  $request)
     {
-        $faker = \Faker\Factory::create(10);
-        $category = category::create([
-            'title'=> $faker->title,
-            'slug'=> $faker->slug
+        category::create([
+            'title'=> $request->title,
+            'slug'=> $request->slug,
         ]);
-        return new CategoriesResource($category);
+        return redirect('/dishes');
     }
 
     /**

@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DishesController;
 use App\Http\Controllers\IngredientsController;
+use App\Http\Controllers\CategoriesController;
 
 
 
@@ -21,8 +22,9 @@ Route::get('/', function () {
     return view('welcome');
 });
 Route::get('/dishes',[DishesController::class,'index']);
-Route::post('/dishes',[IngredientsController::class,'store']);
+Route::post('/ingredient',[IngredientsController::class,'store']);
 Route::post('/dishes',[DishesController::class,'store']);
-Route::delete('/dishes/{id}',[DishesController::class,'destroy']);
+Route::post('/categories',[CategoriesController::class,'store']);
+Route::post('/dishes/{id}',[DishesController::class,'destroy']);
 /*Route::get('/profile/{dish}',[DishesController::class,'show'])->name('dishes.show');
 Route::get('/profile', [DishesController::class, 'index'])->name('profile.index');*/

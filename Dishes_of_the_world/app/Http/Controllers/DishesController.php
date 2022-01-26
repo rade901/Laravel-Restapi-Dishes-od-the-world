@@ -4,10 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Models\dish;
 use App\Models\category;
+use App\Models\ingredients;
 use App\Http\Requests\StoredishRequest;
 use App\Http\Requests\UpdatedishRequest;
 use App\Http\Resources\DishesResource;
 use App\Http\Resources\CategoriesResource;
+use App\Http\Resources\IngredientResource;
 
 
 class DishesController extends Controller
@@ -20,9 +22,10 @@ class DishesController extends Controller
     public function index()
     {
         
-        $dish = DishesResource::collection(dish::all());
+        $dish = DishesResource::collection(dish::paginate(5));
         $category = CategoriesResource::collection(category::all());
-        return view('dishes', compact('dish','category'));
+        $ingredient = IngredientResource::collection(Ingredients::paginate(5));
+        return view('dishes', compact('dish','category','ingredient'));
     }
 
     /**
@@ -48,7 +51,7 @@ class DishesController extends Controller
         dish::create([
             'title'=> $request->title,
             'description'=> $request->description,
-            'category_id'=> $request->category,
+            'category_id'=> $request->category_id,
         ]);
         return redirect('/dishes');
         
@@ -104,7 +107,7 @@ class DishesController extends Controller
     {
        $dish = dish::find($id);
          $dish->delete();
-            return redirect('/dishes');
+            return redirect('dishes');
         
         
     }

@@ -12,7 +12,7 @@
 <body>
   <div class="container">
     <div class="row">
-      <div class="col-md-5">
+      <div class="col-md-4">
         <h1>{{ config('app.name') }}</h1>
         <p>Add new Dish</p>
         <form action="dishes" method="POST">
@@ -32,29 +32,45 @@
               @endforeach
             </select>
             <button type="submit" class="btn btn-primary">Submit</button>
-
+            </form>
           </div>
       </div>
-      <div class="col-md-5">
-        <h1>Ingredients & Tags</h1>
-        <p>Add new ingredients and Tags</p>
+      <div class="col-md-4">
+        <h1>Ingredients</h1>
+        <p>Add new ingredient</p>
         
-        <form action="dishes" method="POST">
+        <form action="ingredient" method="POST">
           @csrf
           <div class="mb-5">
             <label class="form-label">Ingredient title</label>
             <input type="text" name="title" class="form-control" placeholder="Ingredient title">
             <label class="form-label">Slug</label>
             <input type="text" name="slug" class="form-control" placeholder="slug">
-            <label class="form-label">Tag title</label>
-            <input type="text" name="title" class="form-control" placeholder="title">
-            <label class="form-label">Tag slug</label>
-            <input type="text" name="slug" class="form-control" placeholder="slug">
-            <button type="submit" class="btn btn-primary">Submit</button>
+            
           </div>
 
 
+          <button type="submit" class="btn btn-primary">Submit</button>
 
+        </form>
+
+      </div>
+      <div class="col-md-4">
+        <h1>Categories</h1>
+        <p>Add new Category</p>
+        
+        <form action="categories" method="POST">
+          @csrf
+          <div class="mb-5">
+            <label class="form-label">Category title</label>
+            <input type="text" name="title" class="form-control" placeholder="Category title">
+            <label class="form-label">Slug</label>
+            <input type="text" name="slug" class="form-control" placeholder="slug">
+            
+          </div>
+
+
+          <button type="submit" class="btn btn-primary">Submit</button>
 
         </form>
 
@@ -85,7 +101,7 @@
             <td>
               <form action="dishes/{{$item->id}}" method="POST">
                 @csrf
-                @method('DELETE')
+                
                 <button type="submit" class="btn btn-danger">Delete</button>
               </form>
             </td>
@@ -95,6 +111,7 @@
 
         </tbody>
       </table>
+      {{ $dish->links() }}
 
       <h2>Ingredients</h2>
       <table class="table">
@@ -107,23 +124,22 @@
           </tr>
         </thead>
         <tbody>
-          @foreach($dish as $item)
+          @foreach($ingredient as $ing)
 
           <tr>
-            <th scope="row">{{$item->id}}</th>
+            <th scope="row">{{$ing->id}}</th>
 
-            <td>{{$item->title}}</td>
+            <td>{{$ing->title}}</td>
 
-            <td>{{$item->title}}</td>
-            <td>{{$item->slug}}</td>
+            <td>{{$ing->title}}</td>
+            <td>{{$ing->slug}}</td>
           </tr>
 
           @endforeach
         </tbody>
       </table>
-      @if ($item==null)
-      <p>Dont have Ingredients</p>
-      @endif
+      {{ $ingredient->links() }}
+     
 
     </div>
 </body>
