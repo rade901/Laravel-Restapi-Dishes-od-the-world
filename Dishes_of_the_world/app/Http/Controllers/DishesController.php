@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\dish;
+use App\Models\category;
 use App\Http\Requests\StoredishRequest;
 use App\Http\Requests\UpdatedishRequest;
 use App\Http\Resources\DishesResource;
+use App\Http\Resources\CategoriesResource;
 
 
 class DishesController extends Controller
@@ -18,7 +20,9 @@ class DishesController extends Controller
     public function index()
     {
         
-        return DishesResource::collection(dish::all());
+        $dish = DishesResource::collection(dish::all());
+        $category = CategoriesResource::collection(category::all());
+        return view('dishes', compact('dish','category'));
     }
 
     /**
@@ -37,11 +41,17 @@ class DishesController extends Controller
      * @param  \App\Http\Requests\StoredishRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoredishRequest   $request)
+    public function store(StoredishRequest   $request )
   
     {
-        $dish = dish::create($request->all());
-        return new DishesResource($dish);
+      
+        dish::create([
+            'title'=> $request->title,
+            'description'=> $request->description,
+            'category_id'=> $request->category,
+        ]);
+        return redirect('/dishes');
+        
     }
 
     /**
@@ -90,10 +100,12 @@ class DishesController extends Controller
      * @param  \App\Models\dish  $dish
      * @return \Illuminate\Http\Response
      */
-    public function destroy(dish $dish)
+    public function destroy(dish $dish,$id)
     {
-        $dish->delete();
-        return response()->json(null, 204);
+       $dish = dish::find($id);
+         $dish->delete();
+            return redirect('/dishes');
+        
         
     }
     public function softDeleted()
