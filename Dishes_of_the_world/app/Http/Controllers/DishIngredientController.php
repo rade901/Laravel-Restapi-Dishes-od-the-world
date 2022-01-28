@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\dish_ingredient;
 use App\Http\Requests\StoreingredientsRequest;
 use App\Http\Requests\UpdateingredientsRequest;
+use App\Http\Resources\DishIngredientResource;
 
 class DishIngredientController extends Controller
 {
@@ -15,7 +16,8 @@ class DishIngredientController extends Controller
      */
     public function index()
     {
-        //
+        $dish_ingredient = DishIngredientResource::collection(dish_ingredient::all());
+        return view('dishes', compact('dish_ingredient'));
     }
 
     /**
@@ -36,7 +38,11 @@ class DishIngredientController extends Controller
      */
     public function store(StoreingredientsRequest $request)
     {
-        //
+        dish_ingredient::create([
+            'dish_id'=> $request->dish_id,
+            'ingredient_id'=> $request->ingredient_id,
+        ]);
+        return redirect('/dishes');
     }
 
     /**
@@ -47,7 +53,7 @@ class DishIngredientController extends Controller
      */
     public function show(dish_ingredient $dish_ingredient)
     {
-        //
+        return new DishIngredientResource($dish_ingredient);
     }
 
     /**

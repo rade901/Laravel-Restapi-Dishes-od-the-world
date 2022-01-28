@@ -25,6 +25,7 @@ class DishIngredient extends Migration
             ->references('id')
             ->on('dishes')
             ->onDelete('cascade');
+            $table->timestamps();
     });
     }
 

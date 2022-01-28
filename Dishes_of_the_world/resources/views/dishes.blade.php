@@ -31,117 +31,160 @@
               <option value="{{$cat->id}}">{{$cat->title}}</option>
               @endforeach
             </select>
+          
+
+        </form>
+
+        <button type="submit" class="btn btn-primary">Submit</button>
+      </div>
+      <h2>Dish Ingredients</h2>
+      <form action="dish_ingredient" method="post">
+            @csrf
+            <div class="mb-5">
+              <label class="form-label">dish #</label>
+              <input type="number" name="dish_id" class="form-control" placeholder="dish">
+              <label class="form-label">Ingredient #</label>
+              <input type="number" name="ingredient_id" class="form-control" placeholder="Ingredients id">
+            </div>
             <button type="submit" class="btn btn-primary">Submit</button>
-            </form>
-          </div>
-      </div>
-      <div class="col-md-4">
-        <h1>Ingredients</h1>
-        <p>Add new ingredient</p>
-        
-        <form action="ingredient" method="POST">
-          @csrf
-          <div class="mb-5">
-            <label class="form-label">Ingredient title</label>
-            <input type="text" name="title" class="form-control" placeholder="Ingredient title">
-            <label class="form-label">Slug</label>
-            <input type="text" name="slug" class="form-control" placeholder="slug">
-            
-          </div>
+           </form>
+    </div>
 
-
-          <button type="submit" class="btn btn-primary">Submit</button>
-
-        </form>
-
-      </div>
-      <div class="col-md-4">
-        <h1>Categories</h1>
-        <p>Add new Category</p>
-        
-        <form action="categories" method="POST">
-          @csrf
-          <div class="mb-5">
-            <label class="form-label">Category title</label>
-            <input type="text" name="title" class="form-control" placeholder="Category title">
-            <label class="form-label">Slug</label>
-            <input type="text" name="slug" class="form-control" placeholder="slug">
-            
-          </div>
-
-
-          <button type="submit" class="btn btn-primary">Submit</button>
-
-        </form>
-
-      </div>
-
-      <table class="table">
-        <thead>
-          <tr>
-            <th scope="col">#</th>
-            <th scope="col">title</th>
-            <th scope="col">description</th>
-            <th scope="col">#category</th>
-            <th scope="col">category Title</th>
-          </tr>
-        </thead>
-        <tbody>
-          @foreach($dish as $item)
-          <tr>
-            <th scope="row">{{$item->id}}</th>
-            <td>{{$item->title}}</td>
-            <td>{{$item->description}}</td>
-            <td>{{$item->category_id}}</td>
-            @if ($item->category)
-            <td>{{$item->category->title}}</td>
-            @else
-            <td>Dont have Category</td>
-            @endif
-            <td>
-              <form action="dishes/{{$item->id}}" method="POST">
-                @csrf
-                
-                <button type="submit" class="btn btn-danger">Delete</button>
-              </form>
-            </td>
-
-          </tr>
-          @endforeach
-
-        </tbody>
-      </table>
-      {{ $dish->links() }}
-
+    <div class="col-md-4">
       <h2>Ingredients</h2>
-      <table class="table">
-        <thead>
-          <tr>
-            <th scope="col">#</th>
-            <th scope="col">Title of Ingredient</th>
+      <p>Add new ingredient</p>
 
-            <th scope="col">slug</th>
-          </tr>
-        </thead>
-        <tbody>
-          @foreach($ingredient as $ing)
+      <form action="ingredient" method="POST">
+        @csrf
+        <div class="mb-5">
+          <label class="form-label">Ingredient title</label>
+          <input type="text" name="title" class="form-control" placeholder="Ingredient title">
+          <label class="form-label">Slug</label>
+          <input type="text" name="slug" class="form-control" placeholder="slug">
 
-          <tr>
-            <th scope="row">{{$ing->id}}</th>
+        </div>
 
-            <td>{{$ing->title}}</td>
 
-            <td>{{$ing->title}}</td>
-            <td>{{$ing->slug}}</td>
-          </tr>
+        <button type="submit" class="btn btn-primary">Submit</button>
 
-          @endforeach
-        </tbody>
-      </table>
-      {{ $ingredient->links() }}
-     
+      </form>
 
     </div>
+    <div class="col-md-4">
+      <h2>Categories</h2>
+      <p>Add new Category</p>
+
+      <form action="categories" method="POST">
+        @csrf
+        <div class="mb-5">
+          <label class="form-label">Category title</label>
+          <input type="text" name="title" class="form-control" placeholder="Category title">
+          <label class="form-label">Slug</label>
+          <input type="text" name="slug" class="form-control" placeholder="slug">
+
+        </div>
+
+
+        <button type="submit" class="btn btn-primary">Submit</button>
+
+      </form>
+
+    </div>
+
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Title</th>
+          <th scope="col">Description</th>
+          <th scope="col">Category</th>
+          <th scope="col">Ingredient</th>
+          <th scope="col">Created</th>
+          <th scope="col">Delete</th>
+        </tr>
+      </thead>
+      <p>Full Dish</p>
+      <tbody>
+        @foreach($dish as $item)
+        <tr>
+          <th scope="row">{{$item->id}}</th>
+          <td>{{$item->title}}</td>
+          <td>{{$item->description}}</td>
+          <td>{{$item->category->title}}</td>
+          
+          <td>
+           @foreach($DiIn as $dishIngredient)
+           @foreach($ingredients as $ingredient)
+           @if ($dishIngredient->dish_id == $item->id && $dishIngredient->ingredient_id == $ingredient->id)
+           {{$ingredient->title}}<br>
+            @endif
+           @endforeach
+            @endforeach
+            <td>{{$item->created_at->diffForHumans()}}</td>
+          <td>
+
+            <form action="dishes/{{$item->id}}" method="POST">
+              @csrf
+
+              <button type="submit" class="btn btn-danger">Delete</button>
+
+            </form>
+          </td>
+         
+        </tr>
+        @endforeach
+
+      </tbody>
+    </table>
+    {{ $dish->links() }}
+
+    <h2>Ingredients</h2>
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Title of Ingredient</th>
+
+          <th scope="col">slug</th>
+        </tr>
+      </thead>
+      <tbody>
+        @foreach($ingredients as $ing)
+
+        <tr>
+          <th scope="row">{{$ing->id}}</th>
+          <td>{{$ing->title}}</td>
+          <td>{{$ing->slug}}</td>
+        </tr>
+
+        @endforeach
+      </tbody>
+    </table>
+    {{ $ingredients->links() }}
+    <h2>Categories</h2>
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Title of Categories</th>
+          <th scope="col">slug</th>
+        </tr>
+      </thead>
+      <tbody>
+        @foreach($category as $cat)
+
+        <tr>
+          <th scope="row">{{$cat->id}}</th>
+          <td>{{$cat->title}}</td>
+          <td>{{$cat->slug}}</td>
+        </tr>
+
+        @endforeach
+      </tbody>
+    </table>
+    {{ $category->links() }}
+
+  </div>
 </body>
 
 </html>

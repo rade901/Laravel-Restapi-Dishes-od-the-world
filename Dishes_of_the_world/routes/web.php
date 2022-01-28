@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DishesController;
 use App\Http\Controllers\IngredientsController;
 use App\Http\Controllers\CategoriesController;
+use App\Http\Controllers\DishingredientController;
 
 
 
@@ -21,7 +22,8 @@ use App\Http\Controllers\CategoriesController;
 Route::get('/', function () {
     return view('welcome');
 });
-Route::get('/dishes',[DishesController::class,'index']);
+Route::get('/dishes',[DishesController::class,'index']); 
+Route::post('/dish_ingredient',[DishIngredientController::class,'store']); 
 Route::post('/ingredient',[IngredientsController::class,'store']);
 Route::post('/dishes',[DishesController::class,'store']);
 Route::post('/categories',[CategoriesController::class,'store']);

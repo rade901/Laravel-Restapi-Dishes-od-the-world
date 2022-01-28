@@ -2,14 +2,19 @@
 
 namespace App\Http\Controllers;
 
+
 use App\Models\dish;
 use App\Models\category;
 use App\Models\ingredients;
+use App\Models\Tag;
 use App\Http\Requests\StoredishRequest;
 use App\Http\Requests\UpdatedishRequest;
 use App\Http\Resources\DishesResource;
 use App\Http\Resources\CategoriesResource;
+use App\Http\Resources\DishIngredientResource;
 use App\Http\Resources\IngredientResource;
+use App\Http\Resources\TagResource;
+use App\Models\dish_ingredient;
 
 
 class DishesController extends Controller
@@ -23,9 +28,12 @@ class DishesController extends Controller
     {
         
         $dish = DishesResource::collection(dish::paginate(5));
-        $category = CategoriesResource::collection(category::all());
-        $ingredient = IngredientResource::collection(Ingredients::paginate(5));
-        return view('dishes', compact('dish','category','ingredient'));
+        $category = CategoriesResource::collection(category::paginate(5));
+        $ingredients = IngredientResource::collection(ingredients::paginate(5));
+        $Tags = TagResource::collection(Tag::all());
+        $DiIn = DishIngredientResource::collection(dish_ingredient::all());
+        $dish_ingredient = DishIngredientResource::collection(dish_ingredient::all());
+        return view('dishes', compact('dish','category','ingredients','Tags','DiIn','dish_ingredient'));
     }
 
     /**

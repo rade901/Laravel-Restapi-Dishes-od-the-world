@@ -35,15 +35,16 @@ class TagController extends Controller
      * @param  \App\Http\Requests\StoreTagRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store()
+    public function store(StoreTagRequest $request)
     {
-        $faker = \Faker\Factory::create(10);
-        $tag = Tag::create([
-            'title'=> $faker->title,
-            'slug'=> $faker->slug
+        Tag::create([
+            'title'=> $request->title,
+            'slug'=> $request->slug,
+            'dish_id'=> $request->dish_id,
         ]);
-        return new TagResource($tag);
+        return redirect('/dishes');
     }
+    
 
     /**
      * Display the specified resource.

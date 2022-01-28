@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Model;
 class dish extends Model
 {
     use HasFactory;
-    protected $fillable = ['title', 'description', 'category_id'];
+    protected $fillable = ['title', 'description', 'category_id','dish_id','ingredient_id'];
     protected $hidden = ['created_at', 'updated_at','deleted_at'];
 
     public function category()
